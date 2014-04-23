@@ -10,6 +10,6 @@ public interface GprsService {
 	public boolean close();
 	public boolean addNewGprsName(String name);
 	public Gprs getGprsByMac(byte[] b);
+	public List<?> getAllGprsBeans();
 	public List<?> getAllGprs();
-
 }

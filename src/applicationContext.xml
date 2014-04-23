@@ -34,6 +34,9 @@
 	
 	<dubbo:service interface="cn.edu.nju.gqx.provider.ZigbeeService" ref="zigbeeService" />
 	<bean id="zigbeeService" class="cn.edu.nju.gqx.provider.impl.ZigbeeServiceImpl" />
+	
+	<dubbo:service interface="cn.edu.nju.gqx.provider.TaskService" ref="taskService" />
+	<bean id="taskService" class="cn.edu.nju.gqx.provider.impl.TaskServiceImpl" />
     
     <!-- 扫描标记了注解的类 -->  
     <context:annotation-config />

@@ -66,7 +66,7 @@ public class SwitchDao {
 		return swc;
 	}
 	
-	public int updateSwitchByName(String name, int state){
+	public int updateSwitchStateByName(String name, int state){
 		HibernateUtil.openSession();
 		Session session = HibernateUtil.getSession();
 		session.beginTransaction();
@@ -81,6 +81,26 @@ public class SwitchDao {
 			return 0;
 		}
 		swc.setState(state);
+		session.update(swc);
+		session.getTransaction().commit();
+		return 1;
+	}
+	
+	public int updateSwitchTidByName(String name, int tid){
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from Switch where name=?");
+		query.setString(0, name);
+		List<?> list = query.list();
+		Switch swc = null;
+		if(list != null && list.size() != 0){
+			swc = (Switch) list.get(0);
+		}else{
+			return 0;
+		}
+		swc.setTid(tid);
 		session.update(swc);
 		session.getTransaction().commit();
 		return 1;
@@ -105,6 +125,18 @@ public class SwitchDao {
 		
 		Query query = session.createQuery("from Switch where zid=?");
 		query.setInteger(0, zid);
+		List<?> list = query.list();
+		session.getTransaction().commit();
+		return list;
+	}
+	
+	public List<?> getSwitchsByTid(int tid){
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from Switch where tid=?");
+		query.setInteger(0, tid);
 		List<?> list = query.list();
 		session.getTransaction().commit();
 		return list;

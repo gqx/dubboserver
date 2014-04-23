@@ -1,8 +1,11 @@
 package cn.edu.nju.gqx.provider.impl;
 
+import javax.swing.SwingUtilities;
+
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.edu.nju.gqx.gprs.GprsListener;
+import cn.edu.nju.gqx.ui.MainFrame;
 
 public class Provider {
 	static ClassPathXmlApplicationContext context;
@@ -15,6 +18,15 @@ public class Provider {
 		GprsListener listener = (GprsListener) context.getBean("gprsListener");
 		Thread gprsThread = new Thread(listener);
 		gprsThread.start();
+		
+//		SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				MainFrame inst = new MainFrame();
+//				inst.setLocationRelativeTo(null);
+//				inst.setVisible(true);
+//			}
+//		});
+		
 		
 		System.in.read(); 
 	}

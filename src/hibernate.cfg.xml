@@ -17,5 +17,6 @@
   <mapping class="cn.edu.nju.gqx.db.po.Switch"/>
   <mapping class="cn.edu.nju.gqx.db.po.Gprs"/>
   <mapping class="cn.edu.nju.gqx.db.po.Zigbee"/>
+  <mapping class="cn.edu.nju.gqx.db.po.Task"/>
  </session-factory>
 </hibernate-configuration>

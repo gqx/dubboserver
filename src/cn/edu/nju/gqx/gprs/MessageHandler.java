@@ -35,7 +35,7 @@ public class MessageHandler implements Runnable {
 	}
 
 	@Required
-	@Resource(name = "switchServiceImpl")
+	@Resource(name = "switchService")
 	public void setSs(SwitchServiceImpl ss) {
 		this.ss = ss;
 	}

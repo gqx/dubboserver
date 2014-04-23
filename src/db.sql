@@ -38,6 +38,17 @@ CREATE TABLE `Switch` (
     `zid`		int		COMMENT 'zigbee id',
     `name`		VARCHAR(255)		COMMENT '开关i名称',
     `state`		int   	NOT NULL   DEFAULT '0' 	COMMENT '开关状态',
+    `tid`		int		DEFAULT '0' COMMENT 'task id',
+	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT  '最后一次操作时间',
+    PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8 COMMENT '开关表';
+
+DROP TABLE IF EXISTS `Task`;
+CREATE TABLE `Task` (
+    `id`		int   	AUTO_INCREMENT	COMMENT 'id',
+    `tname`		varchar(100)	DEFAULT '' COMMENT '任务名称',
+    `start_time`	VARCHAR(100)		COMMENT '开始时间',
+    `stop_time`		VARCHAR(100)		COMMENT '结束时间',
 	`update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT  '最后一次操作时间',
     PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8 COMMENT '开关表';

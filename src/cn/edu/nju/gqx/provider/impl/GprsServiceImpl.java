@@ -113,7 +113,7 @@ public class GprsServiceImpl implements GprsService{
 	}
 
 	@Override
-	public List<GprsBean> getAllGprs() {
+	public List<GprsBean> getAllGprsBeans() {
 		// TODO Auto-generated method stub
 		List<Gprs> list = (List<Gprs>) gprsDao.getAll();
 		
@@ -142,6 +142,12 @@ public class GprsServiceImpl implements GprsService{
 		}
 //		System.out.println(gid + " zigbeeBeanList size: "+zigbeeBeanList.size());
 		return zigbeeBeanList;
+	}
+
+	@Override
+	public List<?> getAllGprs() {
+		// TODO Auto-generated method stub		
+		return gprsDao.getAll(); 
 	}
 
 }

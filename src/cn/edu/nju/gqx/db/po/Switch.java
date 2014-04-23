@@ -23,6 +23,7 @@ public class Switch implements java.io.Serializable{
 	private Integer zid;
 	private String name;
 	private Integer state;
+	private Integer tid;
 	private Timestamp update_time;
 	
 	@Id
@@ -56,6 +57,12 @@ public class Switch implements java.io.Serializable{
 	}
 	public void setUpdate_time(Timestamp update_time) {
 		this.update_time = update_time;
+	}
+	public Integer getTid() {
+		return tid;
+	}
+	public void setTid(Integer tid) {
+		this.tid = tid;
 	}
 
 }

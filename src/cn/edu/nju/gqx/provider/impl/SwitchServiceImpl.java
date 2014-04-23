@@ -1,6 +1,7 @@
 package cn.edu.nju.gqx.provider.impl;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,19 +11,26 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import cn.edu.nju.gqx.db.dao.SwitchDao;
+import cn.edu.nju.gqx.db.dao.TaskDao;
 import cn.edu.nju.gqx.db.po.Gprs;
 import cn.edu.nju.gqx.db.po.Switch;
+import cn.edu.nju.gqx.db.po.Task;
 import cn.edu.nju.gqx.db.po.Zigbee;
 import cn.edu.nju.gqx.gprs.SocketHolder;
 import cn.edu.nju.gqx.provider.SwitchService;
 import cn.edu.nju.gqx.util.AttributeName;
 import cn.edu.nju.gqx.util.HexConvert;
+import cn.edu.nju.gqx.util.SwitchOffTask;
+import cn.edu.nju.gqx.util.SwitchOnTask;
+import cn.edu.nju.gqx.util.TimerManager;
 
-@Component("switchServiceImpl")
+@Component("switchService")
 @Scope("prototype")
 public class SwitchServiceImpl implements SwitchService {
 	@Resource(name = "switchDao")
 	private SwitchDao switchDao;
+	@Resource(name = "taskDao")
+	private TaskDao taskDao;
 
 	@Override
 	public int switchOn(int id) {
@@ -95,31 +103,6 @@ public class SwitchServiceImpl implements SwitchService {
 		return switchDao.getSwitchByName(sid);
 	}
 
-	@Override
-	public int setClock(String sid, long onTime, long offTime) {
-		// TODO Auto-generated method stub
-		Date date = new Date();
-
-		return 0;
-	}
-
-	@Override
-	public int setClock(String sid, long startTime, int onSpan, int offSpan) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int setClock(String[] sid, long onTime, long offTime) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int setClock(String[] sid, long startTime, int onSpan, int offSpan) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	public static void main(String[] args) {
 		Date date = new Date();
@@ -226,6 +209,12 @@ public class SwitchServiceImpl implements SwitchService {
 		bytes[16] = HexConvert.FCS(bytes, 1, 15);
 		System.out.println("sendMessage: "+HexConvert.bytesToHexString(bytes));
 		return bytes;
+	}
+
+	@Override
+	public List<Switch> getSwitchByTid(int tid) {
+		// TODO Auto-generated method stub
+		return (List<Switch>) switchDao.getSwitchsByTid(tid);
 	}
 
 	
