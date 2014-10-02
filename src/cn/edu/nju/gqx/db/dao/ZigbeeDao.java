@@ -19,24 +19,27 @@ public class ZigbeeDao {
 
 	@Resource(name="gprsDao")
 	private GprsDao gprsDao;
-	public int createZigbee(String mac,String gmac){
+	public int createZigbee(String mac,String gmac,Integer ztype){
 		Gprs gprs = gprsDao.getByMac(gmac);
 		if(gprs == null){//没有对应的gprs
+			HibernateUtil.closeSession();
 			return -1;
 		}
 		
 		if(getByMac(mac) != null){//此mac对应的zigbee已经存在
+			HibernateUtil.closeSession();
 			return -2;
 		}
 		
 		int name = getCountByGprsId(gprs.getId());
-		
-		return createZigbee(mac,gmac,String.valueOf(name+1));
+		HibernateUtil.closeSession();
+		return createZigbee(mac,gmac,String.valueOf(name+1),ztype);
 	}
 	
-	public int createZigbee(String mac,String gmac,String name){
+	public int createZigbee(String mac,String gmac,String name,Integer ztype){
 		Gprs gprs = gprsDao.getByMac(gmac);
 		if(gprs == null){
+			HibernateUtil.closeSession();
 			return -1;
 		}
 		
@@ -48,9 +51,11 @@ public class ZigbeeDao {
 		zigbee.setMac(mac);
 		zigbee.setGid(gprs.getId());
 		zigbee.setName(name);
+		zigbee.setZtype(ztype);
 		
 		session.save(zigbee);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return zigbee.getId();
 	}
 	
@@ -67,6 +72,7 @@ public class ZigbeeDao {
 			zigbee = (Zigbee)list.get(0);
 		}
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return zigbee;
 	}
 	
@@ -83,6 +89,7 @@ public class ZigbeeDao {
 			zigbee = (Zigbee)list.get(0);
 		}
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return zigbee;
 	}
 	
@@ -98,7 +105,7 @@ public class ZigbeeDao {
 		
 		session.getTransaction().commit();
 //		System.out.println("count: "+count);
-		
+		HibernateUtil.closeSession();
 		return count;
 	}
 	
@@ -109,7 +116,7 @@ public class ZigbeeDao {
 		
 		Query query = session.createQuery("from Zigbee");
 		List<?> list = query.list();
-		
+		HibernateUtil.closeSession();
 		return list;
 	}
 	
@@ -121,7 +128,19 @@ public class ZigbeeDao {
 		Query query = session.createQuery("from Zigbee where gid = ?");
 		query.setInteger(0, gid);
 		List<?> list = query.list();
+		HibernateUtil.closeSession();
+		return list;
+	}
+	
+	public List<?> getByType(int ztype){
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
 		
+		Query query = session.createQuery("from Zigbee where ztype = ?");
+		query.setInteger(0, ztype);
+		List<?> list = query.list();
+		HibernateUtil.closeSession();
 		return list;
 	}
 	

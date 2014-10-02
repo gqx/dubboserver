@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+
+<groups>
+
+<group id="1">
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+<switch name="A-1-A"></switch>
+<switch name="A-2-A"></switch>
+</group>
+
+<group id="2">
+<switch name="B-1-A"></switch>
+<switch name="B-2-A"></switch>
+</group>
+
+<group id="3">
+<switch name="C-1-A"></switch>
+<switch name="C-2-A"></switch>
+</group>
+
+<group id="4">
+<switch name="C-1-A"></switch>
+<switch name="C-2-A"></switch>
+</group>
+
+</groups>

@@ -38,6 +38,12 @@
 	<dubbo:service interface="cn.edu.nju.gqx.provider.TaskService" ref="taskService" />
 	<bean id="taskService" class="cn.edu.nju.gqx.provider.impl.TaskServiceImpl" />
     
+    <dubbo:service interface="cn.edu.nju.gqx.provider.TurnService" ref="turnService" />
+	<bean id="turnService" class="cn.edu.nju.gqx.provider.impl.TurnServiceImpl" />
+	
+	<dubbo:service interface="cn.edu.nju.gqx.provider.PressureService" ref="pressureService" />
+	<bean id="pressureService" class="cn.edu.nju.gqx.provider.impl.PressureServiceImpl" />
+    
     <!-- 扫描标记了注解的类 -->  
     <context:annotation-config />
     <context:component-scan base-package="cn.edu.nju.gqx.*" />

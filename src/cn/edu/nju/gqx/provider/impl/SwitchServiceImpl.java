@@ -10,19 +10,17 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import cn.edu.nju.gqx.db.dao.GprsDao;
 import cn.edu.nju.gqx.db.dao.SwitchDao;
 import cn.edu.nju.gqx.db.dao.TaskDao;
+import cn.edu.nju.gqx.db.dao.ZigbeeDao;
 import cn.edu.nju.gqx.db.po.Gprs;
 import cn.edu.nju.gqx.db.po.Switch;
-import cn.edu.nju.gqx.db.po.Task;
 import cn.edu.nju.gqx.db.po.Zigbee;
 import cn.edu.nju.gqx.gprs.SocketHolder;
 import cn.edu.nju.gqx.provider.SwitchService;
 import cn.edu.nju.gqx.util.AttributeName;
 import cn.edu.nju.gqx.util.HexConvert;
-import cn.edu.nju.gqx.util.SwitchOffTask;
-import cn.edu.nju.gqx.util.SwitchOnTask;
-import cn.edu.nju.gqx.util.TimerManager;
 
 @Component("switchService")
 @Scope("prototype")
@@ -31,6 +29,10 @@ public class SwitchServiceImpl implements SwitchService {
 	private SwitchDao switchDao;
 	@Resource(name = "taskDao")
 	private TaskDao taskDao;
+	@Resource(name = "gprsDao")
+	private GprsDao gprsDao;
+	@Resource(name = "zigbeeDao")
+	private ZigbeeDao zigbeeDao;
 
 	@Override
 	public int switchOn(int id) {
@@ -217,5 +219,62 @@ public class SwitchServiceImpl implements SwitchService {
 		return (List<Switch>) switchDao.getSwitchsByTid(tid);
 	}
 
+	@Override
+	public Switch getSwitchByName(String name) {
+		// TODO Auto-generated method stub
+		return switchDao.getSwitchByName(name);
+	}
+
+	@Override
+	public List<Switch> getSwitchByGprsName(String name) {
+		// TODO Auto-generated method stub
+//		Gprs gprs = gprsDao.getByName(name);
+//		if(gprs != null){
+//			ArrayList<Zigbee> zigbeeList = (ArrayList<Zigbee>) zigbeeDao.getByGid(gprs.getId());
+//			if(zigbeeList != null){
+//				for(int i = 0;i <zigbeeList.size();i++){
+//					switchDao.getSwitchsByZid(zigbeeList.get(i).getId());
+//				}
+//			}
+//		}
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public void switchesOn(final ArrayList<String> nameList) {
+		// TODO Auto-generated method stub
+		if(nameList != null){
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(String name:nameList){
+						switchOn(name);
+					}
+				}
+			});
+			t.start();
+		}
+	}
+
+	@Override
+	public void switchesOff(final ArrayList<String> nameList) {
+		// TODO Auto-generated method stub
+		if(nameList != null){
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					for(String name:nameList){
+						switchOff(name);
+					}
+				}
+			});
+			t.start();
+		}
+	}
 	
 }

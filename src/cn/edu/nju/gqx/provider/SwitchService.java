@@ -13,4 +13,8 @@ public interface SwitchService {
 	List<Switch> getAll();
 	Switch getSwitchBySid(String sid);
 	List<Switch> getSwitchByTid(int tid);
+	Switch getSwitchByName(String name);
+	List<Switch> getSwitchByGprsName(String name);
+	void switchesOn(ArrayList<String> nameList);
+	void switchesOff(ArrayList<String> nameList);
 }

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="students.xsl"?>
+
+<!-- 同一个系统中，每个任务的时间都是相连的，如果某时间段没有任务，则设置grpid="-1"-->
+<tasks>
+
+<turn id="1" sysname="一号系统" name="第一天任务" start="0:00" end="5:00" duration="5小时" token="1" grpid="1"></turn>
+
+<turn id="2" sysname="一号系统" name="第一天任务" start="5:00" end="23:58" duration="5小时" token="0" grpid="2"></turn>
+
+<turn id="3" sysname="一号系统" name="第一天任务" start="19:00" end="23:59" duration="5小时" token="0" grpid="-1"></turn>
+
+<turn id="4" sysname="一号系统" name="第二天任务" start="0:00" end="14:00" duration="5小时" token="0" grpid="1"></turn>
+
+<turn id="5" sysname="一号系统" name="第二天任务" start="14:00" end="19:00" duration="5小时" token="0" grpid="1"></turn>
+
+<turn id="6" sysname="二号系统" name="第一天任务" start="23:00" end="23:48" duration="5小时" token="1" grpid="3"></turn>
+
+<turn id="7" sysname="二号系统" name="第一天任务" start="23:49" end="23:50" duration="5小时" token="0" grpid="4"></turn>
+
+</tasks>

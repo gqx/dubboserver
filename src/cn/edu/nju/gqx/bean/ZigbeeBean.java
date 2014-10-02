@@ -17,6 +17,7 @@ public class ZigbeeBean implements java.io.Serializable{
 	private Timestamp update_time;
 	private Zigbee zigbee;
 	private List<?> SwitchList;
+	private Integer ztype;
 	
 	public Integer getId() {
 		return id;
@@ -57,6 +58,12 @@ public class ZigbeeBean implements java.io.Serializable{
 	public Zigbee getZigbee() {
 		return zigbee;
 	}
+	public Integer getZtype() {
+		return ztype;
+	}
+	public void setZtype(Integer ztype) {
+		this.ztype = ztype;
+	}
 	public void setZigbee(Zigbee zigbee) {
 		this.zigbee = zigbee;
 		this.gid = zigbee.getGid();
@@ -64,6 +71,7 @@ public class ZigbeeBean implements java.io.Serializable{
 		this.mac = zigbee.getMac();
 		this.name = zigbee.getName();
 		this.update_time = zigbee.getUpdate_time();
+		this.ztype = zigbee.getZtype();
 	}
 	
 }

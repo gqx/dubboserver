@@ -27,6 +27,7 @@ public class TaskDao {
 		
 		session.save(t);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return t.getId();
 	}
 	
@@ -46,6 +47,7 @@ public class TaskDao {
 		session.delete(t);
 		
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 	}
 
 	public List<?> getAllTask(){
@@ -55,7 +57,7 @@ public class TaskDao {
 		
 		Query query = session.createQuery("from Task");
 		List<?> list = query.list();
-		
+		HibernateUtil.closeSession();
 		return list;
 	}
 	
@@ -71,7 +73,7 @@ public class TaskDao {
 		if(list!=null &&list.size() !=0){
 			t = (Task) list.get(0);
 		}
-		
+		HibernateUtil.closeSession();
 		return t;
 	}
 	
@@ -87,6 +89,7 @@ public class TaskDao {
 		if(list != null && list.size() != 0){
 			t = (Task) list.get(0);
 		}else{
+			HibernateUtil.closeSession();
 			return 0;
 		}
 		t.setStart_time(onTime);
@@ -94,6 +97,7 @@ public class TaskDao {
 		
 		session.update(t);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return 1;
 	}
 	

@@ -27,6 +27,7 @@ public class GprsDao {
 		
 		session.save(gprs);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return gprs.getId();
 	}
 	
@@ -45,10 +46,22 @@ public class GprsDao {
 		gprs.setTemperature(temperature);
 		gprs.setHumidity(humidity);
 		
-		session.save(gprs);
+		session.update(gprs);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return gprs.getId();
 		
+	}
+	
+	public int update(Gprs gprs){
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		session.update(gprs);
+		session.getTransaction().commit();
+		HibernateUtil.closeSession();
+		return gprs.getId();
 	}
 	
 	
@@ -65,6 +78,7 @@ public class GprsDao {
 			gprs = (Gprs)list.get(0);
 		}
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return gprs;
 	}
 	
@@ -81,6 +95,7 @@ public class GprsDao {
 			gprs = (Gprs)list.get(0);
 		}
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return gprs;
 	}
 	
@@ -91,7 +106,7 @@ public class GprsDao {
 		
 		Query query = session.createQuery("from Gprs");
 		List<Gprs> list = query.list();
-
+		HibernateUtil.closeSession();
 		return (List<Gprs>) list;
 	}
 }

@@ -2,7 +2,6 @@ package cn.edu.nju.gqx.gprs;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 
 import javax.annotation.Resource;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import cn.edu.nju.gqx.db.po.Gprs;
 import cn.edu.nju.gqx.provider.GprsService;
-import cn.edu.nju.gqx.provider.SwitchService;
+import cn.edu.nju.gqx.provider.PressureService;
 import cn.edu.nju.gqx.provider.ZigbeeService;
 import cn.edu.nju.gqx.provider.impl.Provider;
 import cn.edu.nju.gqx.provider.impl.SwitchServiceImpl;
@@ -62,9 +61,10 @@ public class MessageHandler implements Runnable {
 				System.out.println("正在接收消息...");
 				InputStream is = client.getInputStream();
 				String ip = client.getInetAddress().getHostAddress() + ": ";
-				byte[] b = new byte[1024];
+				byte[] b = new byte[512];
 				int length = is.read(b);// 读取信息
-	System.out.println("new message:"+length);
+				org.apache.log4j.Logger.getLogger(getClass()).info("new message:"+HexConvert.bytesToHexString(b));
+	System.out.println("new message:"+HexConvert.bytesToHexString(b));
 				processMessage(b,ip);
 
 //				ip = ip + new String(b, 0, length);
@@ -112,15 +112,17 @@ public class MessageHandler implements Runnable {
 				
 		} else if (cmd == AttributeName.ZIGBEE_START) {//来自zigbee（子端）启动时的数据
 			if (HexConvert.FCS(b, 1, 30) == b[31]) {
-				System.out.println("ZIGBEE_START");
+//				System.out.println("ZIGBEE_START");
 				ZigbeeService zs = (ZigbeeService) Provider.getContext().getBean("zigbeeService");
 				zs.start(b);
 			}
 		} else if (cmd == AttributeName.FROM_MAINZIGBEE && HexConvert.FCS(b, 1, 21) == b[22]) {//来自zigbee（总端）上传的数据
-			//更新gprs的socket
-			updateSocket(b);
-			
-		} else if (cmd == AttributeName.SUBZIGBEE_ERROR &&HexConvert.FCS(b, 1, 31) == b[32]) {//来自zigbee（子端）水阀状态有误报警数据
+			//压力传感器
+			if (HexConvert.FCS(b, 1, 30) == b[31]) {
+				PressureService ps = (PressureService) Provider.getContext().getBean("pressureService");
+				ps.addPressure(b);
+			}
+		} else if (cmd == AttributeName.PRESSURE_ZIGBEE &&HexConvert.FCS(b, 1, 31) == b[32]) {//来自zigbee（子端）水阀状态有误报警数据
 			//更新gprs的socket
 			updateSocket(b);
 		}else if(cmd == AttributeName.ZIGBEE_RESPONSE){//来自zigbee（子端）反馈
@@ -130,7 +132,7 @@ public class MessageHandler implements Runnable {
 					mac[i] = b[i+4];	
 				}
 				String macStr = HexConvert.bytesToHexString(mac);
-				System.out.println("mac: "+HexConvert.bytesToHexString(mac));
+//				System.out.println("mac: "+HexConvert.bytesToHexString(mac));
 				ZigbeeService zs = (ZigbeeService) Provider.getContext().getBean("zigbeeService");
 				zs.updateSwitchByMac(macStr, b);
 //				System.out.println("mac: "+HexConvert.bytesToHexString(mac));
@@ -158,9 +160,10 @@ public class MessageHandler implements Runnable {
 		GprsService gs = (GprsService) Provider.getContext().getBean("gprsService");
 		Gprs gprs = gs.getGprsByMac(b);
 		if(gprs != null){
-			System.out.println("updateSocket: "+client.getInetAddress().getHostAddress());
+//			System.out.println("updateSocket: "+client.getInetAddress().getHostAddress());
 			SocketHolder.getInstance().setSocket(gprs.getMac(), client);
-			System.out.println("updateSocket succeed: "+client.getInetAddress().getHostAddress());
+//			System.out.println("updateSocket succeed: "+client.getInetAddress().getHostAddress());
+			gs.update(b);
 		}
 	}
 

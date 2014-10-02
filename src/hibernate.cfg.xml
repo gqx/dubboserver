@@ -4,9 +4,9 @@
 <hibernate-configuration>
  <session-factory >
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password">123456</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dubboserver</property>
-  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password">xianjue_tech</property>
+  <property name="hibernate.connection.url">jdbc:mysql://23.245.26.148:3306/jidacom_xianjue</property>
+  <property name="hibernate.connection.username">jidacom_xianjue</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.connection.pool_size">1</property>
   <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
@@ -18,5 +18,9 @@
   <mapping class="cn.edu.nju.gqx.db.po.Gprs"/>
   <mapping class="cn.edu.nju.gqx.db.po.Zigbee"/>
   <mapping class="cn.edu.nju.gqx.db.po.Task"/>
+  <mapping class="cn.edu.nju.gqx.db.po.Historydata"/>
+  <mapping class="cn.edu.nju.gqx.db.po.Turntask"/>
+  <mapping class="cn.edu.nju.gqx.db.po.Turngroup"/>
+  <mapping class="cn.edu.nju.gqx.db.po.Pressure"/>
  </session-factory>
 </hibernate-configuration>

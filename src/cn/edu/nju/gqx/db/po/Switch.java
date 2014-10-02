@@ -21,7 +21,7 @@ public class Switch implements java.io.Serializable{
 	
 	private Integer id;
 	private Integer zid;
-	private String name;
+	private String name; //if pressure type, name = sysname+_pressure
 	private Integer state;
 	private Integer tid;
 	private Timestamp update_time;

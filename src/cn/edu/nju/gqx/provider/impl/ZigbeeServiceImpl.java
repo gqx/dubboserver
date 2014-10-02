@@ -33,6 +33,17 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 	public boolean start(byte[] b) {
 		// TODO Auto-generated method stub
 
+		byte ztypeByte = b[2];
+		
+		int ztype = 0;
+		if(ztypeByte == AttributeName.ZIGBEE_TYPE_SWITCH_FLAG){
+			ztype = 0;
+		}else if(ztypeByte == AttributeName.ZIGBEE_TYPE_WATER_PUMP_FLAG){
+			ztype = 1;
+		}else if(ztypeByte == AttributeName.ZIGBEE_TYPE_PRESSURE_SENSOR_FLAG){
+			ztype = 2;
+		}
+		
 		byte[] zigbeeMac = new byte[8];
 		for (int i = 4; i < 12; i++) {
 			zigbeeMac[i - 4] = b[i];
@@ -52,7 +63,7 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 		String gprsMacStr = HexConvert.bytesToHexString(gprsMac);
 		String zigbeeMacStr = HexConvert.bytesToHexString(zigbeeMac);
 
-		int zid = zigbeeDao.createZigbee(zigbeeMacStr, gprsMacStr);
+		int zid = zigbeeDao.createZigbee(zigbeeMacStr, gprsMacStr,ztype);
 		String gname = gprsDao.getByMac(gprsMacStr).getName();
 		System.out.println("result: " + zid);
 		Zigbee zigbee = zigbeeDao.getById(zid);
@@ -149,6 +160,24 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 		}
 
 		return true;
+	}
+
+	@Override
+	public List<ZigbeeBean> getZigbeesByType(int ztype) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<ZigbeeBean> beanlist = new ArrayList<ZigbeeBean>();
+		ArrayList<Zigbee> zigbeelist = (ArrayList<Zigbee>) zigbeeDao.getByType(ztype);
+		if(zigbeelist != null){
+			for(Zigbee z : zigbeelist){
+				ZigbeeBean bean = new ZigbeeBean();
+				bean.setZigbee(z);
+				bean.setSwitchList(switchDao.getSwitchsByZid(z.getId()));
+				beanlist.add(bean);
+			}
+		}
+		
+		return beanlist;
 	}
 
 	// public static void main(String[] args){

@@ -20,6 +20,7 @@ public class Zigbee implements java.io.Serializable{
 	private String name;
 	private Integer gid;
 	private String mac;
+	private Integer ztype;
 	private Timestamp update_time;
 	
 	@Id
@@ -47,6 +48,12 @@ public class Zigbee implements java.io.Serializable{
 	}
 	public void setMac(String mac) {
 		this.mac = mac;
+	}
+	public Integer getZtype() {
+		return ztype;
+	}
+	public void setZtype(Integer ztype) {
+		this.ztype = ztype;
 	}
 	public Timestamp getUpdate_time() {
 		return update_time;

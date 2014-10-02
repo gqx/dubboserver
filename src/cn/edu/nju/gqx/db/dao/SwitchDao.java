@@ -27,6 +27,7 @@ public class SwitchDao {
 		
 		session.save(swc);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return swc.getId();
 	}
 	
@@ -45,6 +46,7 @@ public class SwitchDao {
 			swc = null;
 		}
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return swc;
 	}
 	
@@ -63,6 +65,10 @@ public class SwitchDao {
 			swc = null;
 		}
 		session.getTransaction().commit();
+		
+		HibernateUtil.closeSession();
+		//Çå³ý¶ÔswcµÄ»º´æ
+//		session.evict(swc);
 		return swc;
 	}
 	
@@ -83,6 +89,7 @@ public class SwitchDao {
 		swc.setState(state);
 		session.update(swc);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return 1;
 	}
 	
@@ -103,6 +110,7 @@ public class SwitchDao {
 		swc.setTid(tid);
 		session.update(swc);
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return 1;
 	}
 	
@@ -114,7 +122,7 @@ public class SwitchDao {
 		Query query = session.createQuery("from Switch");
 		List<?> list = query.list();
 		session.getTransaction().commit();
-		
+		HibernateUtil.closeSession();
 		return list;
 	}
 	
@@ -127,6 +135,7 @@ public class SwitchDao {
 		query.setInteger(0, zid);
 		List<?> list = query.list();
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return list;
 	}
 	
@@ -139,6 +148,7 @@ public class SwitchDao {
 		query.setInteger(0, tid);
 		List<?> list = query.list();
 		session.getTransaction().commit();
+		HibernateUtil.closeSession();
 		return list;
 	}
 	
@@ -151,6 +161,7 @@ public class SwitchDao {
 		query.setString(0, name);
 		List<?> list = query.list();
 		if(list == null || list.size() == 0){
+			HibernateUtil.closeSession();
 			return null;
 		}else{
 			Object[] o = (Object[]) list.get(0);
@@ -163,6 +174,7 @@ public class SwitchDao {
 			g.setVoltage((Integer)o[4]);
 			g.setTemperature((Integer)o[5]);
 			g.setHumidity((Integer)o[6]);
+			HibernateUtil.closeSession();
 			return g;
 		}
 		
@@ -177,6 +189,7 @@ public class SwitchDao {
 		query.setString(0, name);
 		List<?> list = query.list();
 		if(list == null || list.size() == 0){
+			HibernateUtil.closeSession();
 			return null;
 		}else{
 			Object[] o = (Object[]) list.get(0);
@@ -185,9 +198,9 @@ public class SwitchDao {
 			z.setName((String)o[1]);
 			z.setGid((Integer)o[2]);
 			z.setMac((String)o[3]);
+			HibernateUtil.closeSession();
 			return z;
-		}
-		
+		}	
 	}
 	
 	public static void main (String args[]){
@@ -195,4 +208,5 @@ public class SwitchDao {
 		System.out.println(ud.createSwitch(0,"A2"));
 //		System.out.println(ud.getSwitchById(1).getState());
 	}
+	
 }
