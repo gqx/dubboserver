@@ -18,4 +18,6 @@
 
 <turn id="7" sysname="二号系统" name="第一天任务" start="23:49" end="23:50" duration="5小时" token="0" grpid="4"></turn>
 
+<turn id="8" sysname="三号系统" name="第一天任务" start="23:49" end="23:50" duration="5小时" token="1" grpid="4"></turn>
+
 </tasks>

@@ -382,11 +382,24 @@ public class TurnServiceImpl implements TurnService{
 			for(Turntask task:taskList){
 				ArrayList<Switch> slist = turnDao.getSwitchesByGrpid(task.getGrpid());
 				if(slist != null){
-					switchList.addAll(slist);
+					for(Switch s:slist){ 
+					System.out.println(s.getName());
+						if(s.getState() == Switch.ON_STATE){
+							switchList.add(s);
+						}
+					}
+					
 				}
 			}
 		}
 		return switchList;
+	}
+	
+	@Override
+	public long getOnSwitchNumBySysname(String sysname) {
+		// TODO Auto-generated method stub
+		
+		return turnDao.getOnSwitchNumBySysname(sysname);
 	}
 
 	private int onSwitchesNum(ArrayList<Switch> switchList){
@@ -398,4 +411,6 @@ public class TurnServiceImpl implements TurnService{
 		}
 		return num;
 	}
+
+	
 }

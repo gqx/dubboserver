@@ -232,4 +232,19 @@ public class TurnDao {
 		
 	}
 	
+	public long getOnSwitchNumBySysname(String sysname){
+		
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		StringBuilder sb = new StringBuilder();
+		sb.append("select count(*) from Switch s where s.state=1 and s.name in (select distinct tg.sname from Turngroup tg, Turntask tt where sysname='");
+		sb.append(sysname);
+		sb.append("' and tt.grpid=tg.grpid)");
+		Query query = session.createQuery(sb.toString());
+     
+		
+		return (long)query.uniqueResult();
+	}
+	
 }

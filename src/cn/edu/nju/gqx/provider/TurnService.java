@@ -18,4 +18,5 @@ public interface TurnService {
 	public void stopAutoTaskBySysname(String sysname);
 	public ArrayList<Switch> getRunningTaskSwitchesBySysname(String sysname);
 	public ArrayList<Switch> getOnSwitchesBySysname(String sysname);
+	public long getOnSwitchNumBySysname(String sysname);
 }
