@@ -257,7 +257,7 @@ public class TurnServiceImpl implements TurnService{
 	
 	
 	private void turnOnTask(Turntask task){
-		log.info("turn on task");
+		log.info("turn on task "+task.getId());
 		ArrayList<Turngroup> grouplist = turnDao.getTurngroupByGrpid(task.getGrpid());
 		if(grouplist != null){
 			for(Turngroup group:grouplist){
@@ -269,7 +269,7 @@ public class TurnServiceImpl implements TurnService{
 	}
 	
 	private void turnOffTask(Turntask task){
-		log.info("turn off task");
+		log.info("turn off task "+task.getId());
 		ArrayList<Turngroup> grouplist = turnDao.getTurngroupByGrpid(task.getGrpid());
 		if(grouplist != null){
 			for(Turngroup group:grouplist){
@@ -281,7 +281,7 @@ public class TurnServiceImpl implements TurnService{
 	}
 	
 	private void passToken(Turntask task,Turntask nextTask){
-		log.info("pass token");
+		log.info("pass token from "+task.getId()+" to "+nextTask.getId());
 		task.setToken(0);
 		nextTask.setToken(1);
 		Calendar c = Calendar.getInstance();
@@ -293,7 +293,7 @@ public class TurnServiceImpl implements TurnService{
 	}
 	
 	@Override
-	public void stopAutoTaskBySysname(String sysname) {
+	public void stopAutoTaskBySysname(String sysname,boolean stopSwitches) {
 		// TODO Auto-generated method stub
 		if(sysname.equals("all")){
 			ArrayList<String> sysnames = turnDao.getSysname();
@@ -301,17 +301,17 @@ public class TurnServiceImpl implements TurnService{
 			if(sysnames != null){
 				for(String s:sysnames){
 					taskFlagMap.put(s, false);
-					executeStopAutoTaskBySysname(s);
+					executeStopAutoTaskBySysname(s,stopSwitches);
 				}
 			}
 		}else{
 			taskFlagMap.put(sysname, false);
-			executeStopAutoTaskBySysname(sysname);
+			executeStopAutoTaskBySysname(sysname,stopSwitches);
 		}
 		updateTurnTask(sysname,0);
 	}
 	
-	private void executeStopAutoTaskBySysname(String sysname){
+	private void executeStopAutoTaskBySysname(String sysname,boolean stopSwitches){
 		ArrayList<Turntask> taskList = turnDao.getTurntaskBySysname(sysname);
 		ArrayList<String> namelist = new ArrayList<String>();
 		if(taskList != null){
@@ -326,7 +326,9 @@ public class TurnServiceImpl implements TurnService{
 				namelist.add(group.getSname());
 			}
 		}
-		switchService.switchesOff(namelist);
+		if(stopSwitches){
+			switchService.switchesOff(namelist);
+		}	
 	}
 	
 	private void updateTurnTask(String sysname,int state){
@@ -339,6 +341,10 @@ public class TurnServiceImpl implements TurnService{
 		}
 	}
 	
+	/**
+	 * make the task start from today
+	 * it will start the turn task that the running time is now
+	 */
 	private void setRestartTime(){
 		log.info("set restart time");
 		ArrayList<Turntask> tasklist = turnDao.getTurntaskByToken(1);
@@ -410,6 +416,12 @@ public class TurnServiceImpl implements TurnService{
 			}
 		}
 		return num;
+	}
+
+	@Override
+	public String getTurntaskNameBySwitchName(String switchName) {
+		// TODO Auto-generated method stub
+		return turnDao.getTurntaskNameBySwitchName(switchName);
 	}
 
 	

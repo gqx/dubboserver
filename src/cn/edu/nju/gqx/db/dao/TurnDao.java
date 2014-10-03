@@ -242,9 +242,32 @@ public class TurnDao {
 		sb.append(sysname);
 		sb.append("' and tt.grpid=tg.grpid)");
 		Query query = session.createQuery(sb.toString());
-     
-		
+     		
 		return (long)query.uniqueResult();
+	}
+	
+	public String getTurntaskNameBySwitchName(String switchName){
+		
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		StringBuilder sb = new StringBuilder();
+		sb.append("select distinct tt.ttname from Turntask tt, Turngroup tg where tt.grpid=tg.grpid and tg.sname='");
+		sb.append(switchName);
+		sb.append("'");
+		Query query = session.createQuery(sb.toString());
+		
+		List<?> list = query.list();
+		
+		String turntaskName = null;
+		if(list != null && list.size() != 0){
+			turntaskName =  (String) list.get(0);
+		}
+		
+		session.getTransaction().commit();
+		HibernateUtil.closeSession();
+		
+		return turntaskName;
 	}
 	
 }

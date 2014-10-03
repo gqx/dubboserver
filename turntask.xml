@@ -10,7 +10,7 @@
 
 <turn id="3" sysname="一号系统" name="第一天任务" start="19:00" end="23:59" duration="5小时" token="0" grpid="-1"></turn>
 
-<turn id="4" sysname="一号系统" name="第二天任务" start="0:00" end="14:00" duration="5小时" token="0" grpid="1"></turn>
+<turn id="4" sysname="一号系统" name="第二天任务" start="0:00" end="14:00" duration="5小时" token="0" grpid="3"></turn>
 
 <turn id="5" sysname="一号系统" name="第二天任务" start="14:00" end="19:00" duration="5小时" token="0" grpid="1"></turn>
 
