@@ -145,7 +145,7 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 				if(b[12] == 0x01){
 					state = AttributeName.SWITCH_ON_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
-				}else if(b[12] == 0x02){
+				}else if(b[12] == 0x00){
 					state = AttributeName.SWITCH_OFF_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
 				}
@@ -156,7 +156,7 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 				if(b[12] == 0x01){
 					state = AttributeName.SWITCH_ON_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
-				}else if(b[12] == 0x02){
+				}else if(b[12] == 0x00){
 					state = AttributeName.SWITCH_OFF_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
 				}
@@ -166,7 +166,7 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 				if(b[12] == 0x01){
 					state = AttributeName.SWITCH_ON_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
-				}else if(b[12] == 0x02){
+				}else if(b[12] == 0x00){
 					state = AttributeName.SWITCH_OFF_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
 				}
@@ -176,7 +176,7 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 				if(b[12] == 0x01){
 					state = AttributeName.SWITCH_ON_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
-				}else if(b[12] == 0x02){
+				}else if(b[12] == 0x00){
 					state = AttributeName.SWITCH_OFF_CMD;
 					switchDao.updateSwitchStateByName(s.getName(), state);
 				}
