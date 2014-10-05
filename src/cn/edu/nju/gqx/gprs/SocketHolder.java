@@ -33,11 +33,11 @@ public class SocketHolder {
 		socketMap.put(key, socket);
 		if(socketMap.containsKey(key))
 		System.out.println("post setSocket key:"+key);
-		Iterator iter =  socketMap.keySet().iterator();
-		while(iter.hasNext()){
-			String key1 = (String) iter.next();
-			System.out.println("key1: "+key1);
-		}
+//		Iterator iter =  socketMap.keySet().iterator();
+//		while(iter.hasNext()){
+//			String key1 = (String) iter.next();
+//			System.out.println("key1: "+key1);
+//		}
 		
 	}
 	
@@ -52,12 +52,12 @@ public class SocketHolder {
 	 * @return
 	 */
 	public int sendMessage(String key,byte[] message){
-		System.out.println("pre sendMessage key:"+key);
-		Iterator iter =  socketMap.keySet().iterator();
-		while(iter.hasNext()){
-			String key1 = (String) iter.next();
-			System.out.println("key1: "+key1);
-		}
+//		System.out.println("pre sendMessage key:"+key);
+//		Iterator iter =  socketMap.keySet().iterator();
+//		while(iter.hasNext()){
+//			String key1 = (String) iter.next();
+//			System.out.println("key1: "+key1);
+//		}
 
 		Socket socket = getSocket(key);
 		if(socket != null){

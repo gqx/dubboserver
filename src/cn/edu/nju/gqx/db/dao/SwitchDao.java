@@ -1,9 +1,12 @@
 package cn.edu.nju.gqx.db.dao;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.mapping.Array;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -203,10 +206,39 @@ public class SwitchDao {
 		}	
 	}
 	
-	public static void main (String args[]){
-		SwitchDao ud = new SwitchDao();
-		System.out.println(ud.createSwitch(0,"A2"));
-//		System.out.println(ud.getSwitchById(1).getState());
+	public List<Switch> getSwitchByTypeAndSysname(String sysname,int ztype){
+		HibernateUtil.openSession();
+		Session session = HibernateUtil.getSession();
+		session.beginTransaction();
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("select * from Switch s, Zigbee z,Turntask tt, Turngroup tg where tt.sysname='");
+		sb.append(sysname);
+		sb.append("'and tt.grpid = tg.grpid and tg.sname=s.name and s.zid=z.id and z.ztype='");
+		sb.append(ztype);
+		sb.append("'");
+		Query query = session.createSQLQuery(sb.toString());
+		
+		List<?> list = query.list();
+		
+		
+		List<Switch> switchlist = new ArrayList<Switch>();
+		if(list != null && list.size() != 0){
+			for(int i =0;i < list.size();i++){
+				Object[] o = (Object[]) list.get(i);
+				Switch s = new Switch();
+				s.setId((Integer)o[0]);
+				s.setZid((Integer)o[1]);
+				s.setName((String)o[2]);
+				s.setState((Integer)o[3]);
+				s.setTid((Integer)o[4]);
+				s.setUpdate_time((Timestamp)o[5]);
+				switchlist.add(s);
+				HibernateUtil.closeSession();
+			}
+		}	
+		
+		return switchlist;
 	}
 	
 }

@@ -9,7 +9,7 @@ import cn.edu.nju.gqx.db.po.Turntask;
 public interface TurnService {
 	
 	public void createTurngroupByConfig();
-	public void createTurntaskByConfig();
+	public void createTurntaskByConfig(int daysBeforeStart);
 	public ArrayList<Turntask> getTurntaskBySysname(String sysname);
 	public ArrayList<Turngroup> getTurngroupByGrpid(int grpid);
 	public ArrayList<Turntask> getRunnableTurntaskBySysname(String sysname);

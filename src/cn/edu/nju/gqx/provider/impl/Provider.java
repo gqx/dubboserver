@@ -1,11 +1,7 @@
 package cn.edu.nju.gqx.provider.impl;
 
-import javax.swing.SwingUtilities;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import cn.edu.nju.gqx.gprs.GprsListener;
-import cn.edu.nju.gqx.ui.MainFrame;
 
 public class Provider {
 	static ClassPathXmlApplicationContext context;

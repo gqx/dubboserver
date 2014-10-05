@@ -64,7 +64,6 @@ public class MessageHandler implements Runnable {
 				byte[] b = new byte[512];
 				int length = is.read(b);// 读取信息
 				org.apache.log4j.Logger.getLogger(getClass()).info("new message:"+HexConvert.bytesToHexString(b));
-	System.out.println("new message:"+HexConvert.bytesToHexString(b));
 				processMessage(b,ip);
 
 //				ip = ip + new String(b, 0, length);
@@ -95,7 +94,7 @@ public class MessageHandler implements Runnable {
 		int v = cmd & 0xFF;  
 	    String hv = Integer.toHexString(v);  
 		
-		System.out.println(hv);
+		System.out.println("cmd:"+hv);
 		
 		if (cmd == AttributeName.GPRS_START && HexConvert.FCS(b, 1, 18) == b[19]) {//来自gprs启动时的数据
 			System.out.println("GPRS_START");
@@ -166,17 +165,4 @@ public class MessageHandler implements Runnable {
 			gs.update(b);
 		}
 	}
-
-	public static void main(String[] args) {
-		MessageHandler m = new MessageHandler();
-		byte[] b = new byte[5];
-		b[0] = (byte) 0xFE;
-		b[1] = (byte) 0x12;
-		b[2] = (byte) 0x00;
-		b[3] = (byte) 0x5A;
-		b[4] = (byte) 0x34;
-		System.out.println(Integer.toHexString(HexConvert.FCS(b, 1, 3)));
-
-	}
-
 }

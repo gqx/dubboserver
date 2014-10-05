@@ -28,5 +28,12 @@ public class AttributeName {
 	public static final String TURNGROUP_FILE_PATH = "turngroup.xml";
 	public static final String TURNTASK_FILE_PATH = "turntask.xml";
 	
+	public static final int TASK_TO_RUN_TOKEN = 0;
+	public static final int TASK_SHOULD_RUN_TOKEN = 1;
+	public static final int TASK_SHOULD_FINISHED_TOKEN = -1;
+	
+	public static final int SWITCH_ON_STATE = 1;
+	public static final int SWITCH_OFF_STATE = 0;
+	
 	
 }

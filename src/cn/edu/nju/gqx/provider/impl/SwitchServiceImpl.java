@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ public class SwitchServiceImpl implements SwitchService {
 	private GprsDao gprsDao;
 	@Resource(name = "zigbeeDao")
 	private ZigbeeDao zigbeeDao;
-
+	Logger log = Logger.getLogger(getClass());
 	@Override
 	public int switchOn(int id) {
 		// TODO Auto-generated method stub
@@ -52,8 +53,8 @@ public class SwitchServiceImpl implements SwitchService {
 			String gmac = gprs.getMac();
 			char switchOrder = name.charAt(name.length() - 1);// switch的号A，B，C，D
 			SocketHolder.getInstance().sendMessage(gmac,getSwitchOnBytes(zigbee.getMac(), switchOrder));
-			System.out.println("sendMessage: "+gmac+" switchOrder:"+switchOrder);
-			
+//			System.out.println("sendMessage: "+gmac+" switchOrder:"+switchOrder);
+			log.info("send: turn on switch "+name);
 			return 1;
 			
 		} else {
@@ -79,8 +80,8 @@ public class SwitchServiceImpl implements SwitchService {
 			String gmac = gprs.getMac();
 			char switchOrder = name.charAt(name.length() - 1);// switch的号A，B，C，D
 			SocketHolder.getInstance().sendMessage(gmac,getSwitchOffBytes(zigbee.getMac(), switchOrder));
-			System.out.println("sendMessage: "+gmac+" switchOrder:"+switchOrder);
-			
+//			System.out.println("sendMessage: "+gmac+" switchOrder:"+switchOrder);
+			log.info("send: turn off switch "+name);
 //			byte[] b = SocketHolder.getInstance().getMessage(gmac);
 //			byte cmd = b[3];
 //			if (cmd == AttributeName.ZIGBEE_RESPONSE) {// 来自zigbee（子端）反馈

@@ -4,20 +4,18 @@
 <!-- 同一个系统中，每个任务的时间都是相连的，如果某时间段没有任务，则设置grpid="-1"-->
 <tasks>
 
-<turn id="1" sysname="一号系统" name="第一天任务" start="0:00" end="5:00" duration="5小时" token="1" grpid="1"></turn>
+<turn id="1" sysname="一号系统" name="第一天任务" dayId="1" start="12:25" end="13:59" duration="5小时" token="0" grpid="1"></turn>
 
-<turn id="2" sysname="一号系统" name="第一天任务" start="5:00" end="23:58" duration="5小时" token="0" grpid="2"></turn>
+<turn id="2" sysname="一号系统" name="第一天任务" dayId="1" start="13:59" end="14:07" duration="5小时" token="0" grpid="2"></turn>
 
-<turn id="3" sysname="一号系统" name="第一天任务" start="19:00" end="23:59" duration="5小时" token="0" grpid="-1"></turn>
+<turn id="3" sysname="一号系统" name="第二天任务" dayId="2" start="0:00" end="14:00" duration="5小时" token="0" grpid="3"></turn>
 
-<turn id="4" sysname="一号系统" name="第二天任务" start="0:00" end="14:00" duration="5小时" token="0" grpid="3"></turn>
+<turn id="4" sysname="一号系统" name="第二天任务" dayId="2" start="14:00" end="19:00" duration="5小时" token="0" grpid="1"></turn>
 
-<turn id="5" sysname="一号系统" name="第二天任务" start="14:00" end="19:00" duration="5小时" token="0" grpid="1"></turn>
+<turn id="5" sysname="二号系统" name="第一天任务" dayId="1" start="14:00" end="14:03" duration="5小时" token="0" grpid="3"></turn>
 
-<turn id="6" sysname="二号系统" name="第一天任务" start="23:00" end="23:48" duration="5小时" token="1" grpid="3"></turn>
+<turn id="6" sysname="二号系统" name="第一天任务" dayId="1" start="14:03" end="14:13" duration="5小时" token="0" grpid="4"></turn>
 
-<turn id="7" sysname="二号系统" name="第一天任务" start="23:49" end="23:50" duration="5小时" token="0" grpid="4"></turn>
-
-<turn id="8" sysname="三号系统" name="第一天任务" start="23:49" end="23:50" duration="5小时" token="1" grpid="4"></turn>
+<turn id="7" sysname="三号系统" name="第一天任务" dayId="1" start="23:49" end="23:50" duration="5小时" token="0" grpid="4"></turn>
 
 </tasks>
