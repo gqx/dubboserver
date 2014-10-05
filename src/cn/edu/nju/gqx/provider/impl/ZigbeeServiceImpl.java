@@ -131,7 +131,6 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 	public boolean updateSwitchByMac(String mac, byte[] b) {
 		Zigbee zigbee = zigbeeDao.getByMac(mac);
 		if (zigbee == null) {
-			System.out.println(0);
 			return false;
 		}
 
@@ -142,20 +141,45 @@ public class ZigbeeServiceImpl implements ZigbeeService {
 			sname = sname.substring(sname.length() - 1);
 //			System.out.println("sname: "+sname);
 			if (sname.equals("A")) {
-				int state = b[12] == 0x01?AttributeName.SWITCH_ON_CMD:AttributeName.SWITCH_OFF_CMD;
-				switchDao.updateSwitchStateByName(s.getName(), state);
+				int state; 
+				if(b[12] == 0x01){
+					state = AttributeName.SWITCH_ON_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}else if(b[12] == 0x02){
+					state = AttributeName.SWITCH_OFF_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}
+				
 			}
 			else if (sname.equals("B")) {
-				int state = b[13] == 0x01?AttributeName.SWITCH_ON_CMD:AttributeName.SWITCH_OFF_CMD;
-				switchDao.updateSwitchStateByName(s.getName(), state);
+				int state; 
+				if(b[12] == 0x01){
+					state = AttributeName.SWITCH_ON_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}else if(b[12] == 0x02){
+					state = AttributeName.SWITCH_OFF_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}
 			}
 			else if (sname.equals("C")) {
-				int state = b[14] == 0x01?AttributeName.SWITCH_ON_CMD:AttributeName.SWITCH_OFF_CMD;
-				switchDao.updateSwitchStateByName(s.getName(), state);
+				int state; 
+				if(b[12] == 0x01){
+					state = AttributeName.SWITCH_ON_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}else if(b[12] == 0x02){
+					state = AttributeName.SWITCH_OFF_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}
 			}
 			else if (sname.equals("D")) {
-				int state = b[15] == 0x01?AttributeName.SWITCH_ON_CMD:AttributeName.SWITCH_OFF_CMD;
-				switchDao.updateSwitchStateByName(s.getName(), state);
+				int state; 
+				if(b[12] == 0x01){
+					state = AttributeName.SWITCH_ON_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}else if(b[12] == 0x02){
+					state = AttributeName.SWITCH_OFF_CMD;
+					switchDao.updateSwitchStateByName(s.getName(), state);
+				}
 			}
 		}
 
